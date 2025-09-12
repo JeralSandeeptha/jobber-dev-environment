@@ -46,3 +46,15 @@ services:
       - POSTGRES_DB=jobber_reviews_db
     volumes:
       - ./docker-volumes/postgres:/var/lib/postgresql
+  rabbitmq:
+    container_name: rabbitmq_container
+    image: rabbitmq:latest
+    restart: always
+    ports:
+      # AMQP Protocol
+      - "5672:5672"
+      # Management console Protocol
+      - "15672:15672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=jeral
+      - RABBITMQ_DEFAULT_PASS=1234
