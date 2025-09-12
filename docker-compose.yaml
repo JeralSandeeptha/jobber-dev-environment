@@ -21,3 +21,16 @@ services:
     # environment:
     #   MONGO_INITDB_ROOT_USERNAME: "root"
     #   MONGO_INITDB_ROOT_PASSWORD: "example"
+  mysql:
+    container_name: mysql_container
+    image: mysql:latest
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_USER=jeral
+      - MYSQL_PASSWORD=1234
+      - MYSQL_DATABASE=jobber_auth_db
+      - MYSQL_ROOT_PASSWORD=1234
+    volumes:
+      - ./docker-volumes/data:/var/lib/mysql
