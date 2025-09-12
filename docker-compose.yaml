@@ -16,7 +16,7 @@ services:
     ports:
       - "27017:27017"
     volumes:
-      - ./docker-volumes/data:/data/db
+      - ./docker-volumes/mongo:/data/db
     # For the development we can use username and password but for now we don't need that 
     # environment:
     #   MONGO_INITDB_ROOT_USERNAME: "root"
@@ -33,4 +33,16 @@ services:
       - MYSQL_DATABASE=jobber_auth_db
       - MYSQL_ROOT_PASSWORD=1234
     volumes:
-      - ./docker-volumes/data:/var/lib/mysql
+      - ./docker-volumes/mysql:/var/lib/mysql
+  postgres:
+    container_name: postgres_container
+    image: postgres:latest
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=jeral
+      - POSTGRES_PASSWORD=1234
+      - POSTGRES_DB=jobber_reviews_db
+    volumes:
+      - ./docker-volumes/postgres:/var/lib/postgresql
