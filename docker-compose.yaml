@@ -100,6 +100,28 @@ services:
       - ./kibana.yaml:/usr/share/kibana/config/kibana.yml:ro
     depends_on: 
       - elasticsearch
+  notifications:
+    container_name: notifications_container
+    build:
+      context: "C:/Custom Downloads/notification_service"
+      dockerfile: Dockerfile.dev
+    restart: always
+    ports:
+      - "4001:4001"
+    env_file:
+    - "C:/Custom Downloads/notification_service/.env"
+    environment:
+      - ENABLE_APM=0
+      - NODE_ENV=development
+      - CLIENT_URL=http://localhost:3000
+      - RABBITMQ_ENDPOINT=amqp://jeral:1234@rabbitmq_container:5672
+      - SENDER_EMAIL=krystal.smith@ethereal.email
+      - SENDER_EMAIL_PASSWORD=VUTDZK226ZRA1st2qY
+      - ELASTIC_SEARCH_URL=http://elastic:admin1234@elasticsearch_container:9200
+      - ELASTIC_APM_SERVER_URL=http://localhost:8200
+      - ELASTIC_APM_SECRET_TOKEN=
+    depends_on:
+      - elasticsearch
 
 networks:
   elastic:
